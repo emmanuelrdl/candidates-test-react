@@ -12,9 +12,9 @@ export default (state = defaultState, action) => {
       return state
     }
     case ACTIONS.Types.RECEIVE_COMPONENTS: {
-      return { 
+      return {
         ...state,
-        ...action.data, 
+        ...action.data,
       }
     }
    case ACTIONS.Types.FETCH_USERS: {
@@ -27,7 +27,7 @@ export default (state = defaultState, action) => {
       }
     }
     case ACTIONS.Types.ADD_SHARED_DATA: {
-      const newSharedData = { ...get(state, 'sharedData'), ...action.data }
+      const newSharedData = { ...state, ...state.sharedData, ...action.data }
       return {
         ...state,
         sharedData: newSharedData
@@ -38,4 +38,3 @@ export default (state = defaultState, action) => {
       return state
   }
 }
-

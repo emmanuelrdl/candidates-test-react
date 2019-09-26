@@ -6,14 +6,14 @@ import { isEmpty, get, isEqual } from 'lodash'
 const getListenedData = (reactComponent, sharedData) => {
     var componentListenedData = {}
     Object.keys(sharedData).forEach((key) => {
-      if (reactComponent.listeners.includes(key)) { 
-        componentListenedData = { 
-          ...sharedData[key], 
-          ...componentListenedData 
+      if (reactComponent.listeners.includes(key)) {
+        componentListenedData = {
+          ...sharedData[key],
+          ...componentListenedData
         }
       }
     })
-    return componentListenedData 
+    return componentListenedData
   }
 
 
@@ -26,13 +26,13 @@ const Configurable = (props) => {
     return null
   }
   const indentifier = get(component, 'component_identifier')
-  const built = indentities.find( id => isEqual(id.code, indentifier) )  
-  const reactComponent = built
+  const reactComponent = indentities.find( id => isEqual(id.code, indentifier) )
   const CurrentComponent = get(reactComponent, "component")
   const key = get(component, "code")
   const children = get(component, "children")
-  const listenedData =  getListenedData(reactComponent, sharedData) 
-  const builtProps = { 
+  const listenedData =  getListenedData(reactComponent, sharedData)
+  console.log(key, 'listenedData', listenedData)
+  const builtProps = {
     ...newProps,
     ...listenedData,
   }
@@ -40,14 +40,14 @@ const Configurable = (props) => {
     <CurrentComponent key={key} {...builtProps} >
     {
       !isEmpty(children) && children.map( (child) => (
-        <Configurable 
+        <Configurable
         {...builtProps}
         data={child.data}
-        component={child} 
+        component={child}
         sharedData={sharedData}
         key={child.code}
-        /> 
-      )) 
+        />
+      ))
     }
     </CurrentComponent>
   )
